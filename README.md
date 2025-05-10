@@ -1,4 +1,4 @@
-# Wi-Fi 6 Intel AX210 on macOS Sonoma
+# Wi-Fi 6 Intel AX210 on macOS Sonoma and Sequoia
 
 <p align="center">
 <img src="img/Wi-Fi.png">
