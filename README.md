@@ -80,6 +80,92 @@ On Monterey and newer you have to install 3 extensions:
 
 ---
 
+### Instant wake after sleep
+
+There are users, myself included, experience this behavior of waking up immediately after sleep when using the Bluetooth module on Intel cards together with OpenIntelWireless kexts.
+
+I reported this as an issue to the developer almost long time ago ([Sleep/instant wake when using Bluetooth kexts](https://github.com/OpenIntelWireless/IntelBluetoothFirmware/issues/477)), but he didn't consider it a problem with the kexts.
+
+There is a fix. Adding `SSDT-GPRW.aml` to the ACPI folder and config.plist, and adding the patch `Change GPRW to XPRW, needs SSDT-GPRW.aml` to ACPI >> Patch in config.plist, the PC properly enters sleep, but only wakes up from the power button; the ability to wake from the keyboard or mouse is lost. It's a drawback, certainly, but preferable to losing the sleep functionality.
+
+#### SSDT-GPRW
+
+```c++
+DefinitionBlock ("", "SSDT", 2, "DRTNIA", "GPRW", 0x00000000)
+{
+    External (XPRW, MethodObj)    // 2 Arguments
+
+    Method (GPRW, 2, NotSerialized)
+    {
+        If (_OSI ("Darwin"))
+        {
+            If ((0x6D == Arg0))
+            {
+                Return (Package (0x02)
+                {
+                    0x6D, 
+                    Zero
+                })
+            }
+
+            If ((0x0D == Arg0))
+            {
+                Return (Package (0x02)
+                {
+                    0x0D, 
+                    Zero
+                })
+            }
+        }
+
+        Return (XPRW (Arg0, Arg1))
+    }
+}
+```
+
+#### Change GPRW to XPRW patch
+
+```xml
+	<key>ACPI</key>
+	<dict>
+		<key>Patch</key>		
+                <array>
+			<dict>
+				<key>Base</key>
+				<string></string>
+				<key>BaseSkip</key>
+				<integer>0</integer>
+				<key>Comment</key>
+				<string>Change GPRW to XPRW, needs SSDT-GPRW.aml</string>
+				<key>Count</key>
+				<integer>0</integer>
+				<key>Enabled</key>
+				<true/>
+				<key>Find</key>
+				<data>R1BSVwI=</data>
+				<key>Limit</key>
+				<integer>0</integer>
+				<key>Mask</key>
+				<data></data>
+				<key>OemTableId</key>
+				<data></data>
+				<key>Replace</key>
+				<data>WFBSVwI=</data>
+				<key>ReplaceMask</key>
+				<data></data>
+				<key>Skip</key>
+				<integer>0</integer>
+				<key>TableLength</key>
+				<integer>0</integer>
+				<key>TableSignature</key>
+				<data></data>
+			</dict>
+		</array>
+	</dict>
+```
+
+You can read more deeply about this SSDT and patch at [0D/6D patch](https://github.com/jsassu20/OpenCore-HotPatching-Guide/tree/master/12-060D%20Patch/12-1-Common%20060D%20patch).
+
 ### Performance
 
 The Intel card has Wi-Fi performance slightly better than the Fenvi with Broadcom.
