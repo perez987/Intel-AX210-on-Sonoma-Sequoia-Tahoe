@@ -164,6 +164,8 @@ DefinitionBlock ("", "SSDT", 2, "DRTNIA", "GPRW", 0x00000000)
 
 You can read more deeply about this SSDT and patch at [0D/6D patch](https://github.com/jsassu20/OpenCore-HotPatching-Guide/tree/master/12-060D%20Patch/12-1-Common%20060D%20patch).
 
+---
+
 ### Performance
 
 The Intel card has Wi-Fi performance slightly better than the Fenvi with Broadcom.
