@@ -78,8 +78,6 @@ On Monterey and newer you have to install 3 extensions:
 
 `IntelBTPatcher.kext `and `IntelBluetoothFirmware.kext` are inside the `IntelBluetooth` package available in the [releases](https://github.com/OpenIntelWireless/IntelBluetoothFirmware/releases) page.
 
----
-
 ### Instant wake after sleep
 
 There are users, myself included, experience this behavior of waking up immediately after sleep when using the Bluetooth module on Intel cards together with OpenIntelWireless kexts.
