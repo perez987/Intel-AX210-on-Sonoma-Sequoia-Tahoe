@@ -166,19 +166,6 @@ You can read more deeply about this SSDT and patch at [0D/6D patch](https://gith
 
 ---
 
-### Performance
-
-The Intel card has Wi-Fi performance slightly better than the Fenvi with Broadcom.
-
-<p align="left">
-<img width="540" src="img/Test itlwm.png">
-</p>
-<p align="left">
-<img width="540" src="img/Test AirportItlwm.png">
-</p>
-
----
-
 ### Summary
 
 This hardware is a valid option for those who do not have Broadcom Wi-Fi in macOS Sonoma+ or do not want to apply OCLP root patches. It is not expensive and easy to install. As a main drawback, the features of the Apple ecosystem are lost (all with `itlwm.kext` and most with `AirportItlwm.kext`). Airdrop does not work in any way and this is the feature that I miss the most with respect to the Fenvi.
