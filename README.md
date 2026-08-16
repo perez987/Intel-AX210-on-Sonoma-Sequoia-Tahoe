@@ -1,4 +1,4 @@
-# Wi-Fi 6 Intel AX210 on macOS Sonoma, Sequoia and Tahoe
+# Intel AX210 on macOS Sonoma, Sequoia and Tahoe
 
 <p align="center">
 <img src="img/Wi-Fi.png">
