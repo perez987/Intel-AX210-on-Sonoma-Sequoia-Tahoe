@@ -62,9 +62,7 @@ Both kexts should not be used at the same time, only one of them. I have tried b
 
 **Note about macOS 15 Sequoia and macOS 26 Tahoe**: itlwm.kext 2.3.0 + Heliport 2.0.0 alpha work fine. AirportItlwm.kext 2.3.0 for 14.4 doesn't work, this kext must be updated by the dev.
 
-All kexts are available in the [releases](https://github.com/OpenIntelWireless/itlwm/releases) page.
-
-Heliport app is part of the OpenIntelWireless project, you can get it in the [releases](https://github.com/OpenIntelWireless/HeliPort/releases) page.
+All kexts are available in the [releases](https://github.com/OpenIntelWireless/itlwm/releases) page. You can get an updated version of Heliport [here](https://github.com/perez987/HeliPort).
 
 ---
 
