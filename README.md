@@ -49,7 +49,7 @@ From OpenCore-Patcher (OCLP) >> Post-Install Root Patch >> Revert Root Patches.
 
 The kexts are available on the OpenIntelWireless site. There are 2 ways to install Wi-Fi:
 
-* `itlwm.kext`: uses `IOEthernetController` instead of `IO80211Family` so the connection spoofs as Ethernet even though it works as wifi. It does not use the macOS Wi-Fi menu, instead you have to use the HeliPort application. On Ventura you need itlwm v2.2.0. On Sonoma you need itlwm v2.3.0.
+* `itlwm.kext`: uses `IOEthernetController` instead of `IO80211Family` so the connection spoofs as Ethernet even though it works as wifi. It does not use the macOS Wi-Fi menu, instead you have to use the HeliPort application to activate the Wi-Fi. On Ventura you need itlwm v2.2.0. On Sonoma you need itlwm v2.3.0.
 * `AirportItlwm.kext`: uses `IO80211Family` so it works like the rest of the system's Wi-Fi connections. It provides minimal Continuity features (Handoff and Universal Clipboard, not always available, no Airdrop) but cannot connect to hidden networks. No HeliPort app needed. On Ventura you need AirportItlwm v2.2.0. On Sonoma prior to 14.4 you need AirportItlwm v2.3.0 for Sonoma 14.0.
 
 Both kexts should not be used at the same time, only one of them. I have tried both and they seem to have worked well. The card is well detected, as you can see in Hackintool.
@@ -58,9 +58,9 @@ Both kexts should not be used at the same time, only one of them. I have tried b
 <img width="740" src="img/AX210 Hackintool.png">
 </p>
 
-**Note about macOS 14.4 Sonoma**: Apple has changed parts of the Wi-Fi stack. For this macOS you must get AirportItlwm v2.3.0 for Sonoma 14.4. itlwm.kext 2.3.0 + Heliport 1.5.0 work fine too.
+**Note about macOS 14.4 Sonoma**: Apple has changed parts of the Wi-Fi stack. For this macOS you must get AirportItlwm v2.3.0 for Sonoma 14.4. itlwm.kext 2.3.0 + Heliport work fine too.
 
-**Note about macOS 15 Sequoia and macOS 26 Tahoe**: itlwm.kext 2.3.0 + Heliport 2.0.0 alpha work fine. AirportItlwm.kext 2.3.0 for 14.4 doesn't work, this kext must be updated by the dev.
+**Note about macOS 15 Sequoia and macOS 26 Tahoe**: itlwm.kext 2.3.0 + Heliport work fine. AirportItlwm.kext 2.3.0 for 14.4 doesn't work, this kext must be updated by the dev.
 
 All kexts are available in the [releases](https://github.com/OpenIntelWireless/itlwm/releases) page. You can get an updated version of Heliport [here](https://github.com/perez987/HeliPort).
 
