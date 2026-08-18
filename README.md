@@ -192,7 +192,7 @@ If you have this issue: Bluetooth disconnects/toggles off during normal use (e.g
 
 2.- Edit `NVRAM > Add > 7C436110-AB2A-4BBB-A880-FE41995C9F82`, make sure you have these keys:
 
-```plist
+```xml
 <key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
 <dict>
     <key>boot-args</key>
