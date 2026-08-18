@@ -8,8 +8,6 @@ macOS Sonoma removed drivers for Broadcom Wi-Fi cards found in Mac models prior 
 
 Here I propose a model of Intel Wi-Fi card that by default lacks support but can be used in macOS thanks to the work of the OpenIntelWireless site. This is the Intel AX210S PCIe WiFi 6E card. This card can work with regular macOS security conditions without needing to relax Apple Secure Boot or SIP. It may be interesting for those who have lost Broadcom Wi-Fi support in macOS Sonoma+ or for those who want to keep the security of their system without resorting to OCLP patches.
 
----
-
 ### Hardware
 
 The card can be purchased in 2 different ways:
@@ -28,8 +26,6 @@ The card can be purchased in 2 different ways:
 </tr>
 </table>
 
----
-
 ### Revert OCLP patch and config.plist changes
 
 If you have been using Fenvi or Broadcom Wi-Fi, you must revert all the settings related to config.plist and OCLP root patch.
@@ -42,8 +38,6 @@ In config.plist:
 * change `SecureBootModel` to a value other than Disabled.
 
 From OpenCore-Patcher (OCLP) >> Post-Install Root Patch >> Revert Root Patches.
-
----
 
 ### Installing wifi module
 
@@ -63,8 +57,6 @@ Both kexts should not be used at the same time, only one of them. I have tried b
 **Note about macOS 15 Sequoia and macOS 26 Tahoe**: itlwm.kext 2.3.0 + Heliport work fine. AirportItlwm.kext 2.3.0 for 14.4 doesn't work, this kext must be updated by the dev.
 
 All kexts are available in the [releases](https://github.com/OpenIntelWireless/itlwm/releases) page. You can get an updated version of Heliport [here](https://github.com/perez987/HeliPort).
-
----
 
 ### Installing Bluetooth module
 
@@ -162,13 +154,9 @@ DefinitionBlock ("", "SSDT", 2, "DRTNIA", "GPRW", 0x00000000)
 
 You can read more deeply about this SSDT and patch at [0D/6D patch](https://github.com/jsassu20/OpenCore-HotPatching-Guide/tree/master/12-060D%20Patch/12-1-Common%20060D%20patch).
 
----
-
 ### Summary
 
 This hardware is a valid option for those who do not have Broadcom Wi-Fi in macOS Sonoma+ or do not want to apply OCLP root patches. It is not expensive and easy to install. As a main drawback, the features of the Apple ecosystem are lost (all with `itlwm.kext` and most with `AirportItlwm.kext`). Airdrop does not work in any way and this is the feature that I miss the most with respect to the Fenvi.
-
----
 
 ### Note about Hackintool
 
@@ -195,3 +183,27 @@ But, changing to `Name=AirportItlwm`, Hackintool displays the active kext in a w
 <p align="left">
 <img width="440" src="img/Hackintool AirportItlwm.png">
 </p>
+
+### Bluetooth crashes/toggles off on AX200
+
+If you have this issue: Bluetooth disconnects/toggles off during normal use (e.g. attempting to pair or use a device), requiring the toggle to be flipped off/on again — and sometimes requires a full reboot to recover, try this fix by [davidm71](https://github.com/davidm71):
+
+1.-Configure the internal USB ports as 255 in the USB port mapping kext if they are not already.
+
+2.- Edit `NVRAM > Add > 7C436110-AB2A-4BBB-A880-FE41995C9F82`, make sure you have these keys:
+
+```plist
+<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
+<dict>
+    <key>boot-args</key>
+    <string>-bt4le -btlfxallowanyaddr</string>
+    <key>bluetoothExternalDongleFailed</key>
+    <data>
+    AA==
+    </data>
+    <key>bluetoothInternalControllerInfo</key>
+    <data>
+    AAAAAAAAAAAAAAAAAAA=
+    </data>
+</dict>
+```
