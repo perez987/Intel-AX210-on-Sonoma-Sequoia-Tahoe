@@ -207,3 +207,6 @@ If you have this issue: Bluetooth disconnects/toggles off during normal use (e.g
     </data>
 </dict>
 ```
+#### Technical Explanation
+
+Something has changed in the way macOS initializes hardware. According to *davidm71* research, it may have been because Apple introduced stricter internal validation routines and changed how controller descriptors and firmware handoffs are cached. This resulted in macOS (especially after 13.x) to incorrectly flag internal adapters and hang on uninitialized firmware states (resulting in infinite polling loops), making these explicit NVRAM injections necessary to override the new system checks.
