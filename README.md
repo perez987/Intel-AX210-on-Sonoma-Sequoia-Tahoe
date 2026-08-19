@@ -186,7 +186,7 @@ But, changing to `Name=AirportItlwm`, Hackintool displays the active kext in a w
 
 ### Bluetooth crashes/toggles off on AX200
 
-If you have this issue: Bluetooth disconnects/toggles off during normal use (e.g. attempting to pair or use a device), requiring the toggle to be flipped off/on again — and sometimes requires a full reboot to recover, try this fix found by [davidm71](https://github.com/davidm71):
+If you have this issue: Bluetooth disconnects/toggles off during normal use (e.g. attempting to pair or use a device), requiring the toggle to be flipped off/on again — and sometimes requires a full reboot to recover, try this fix, confirmed working by [davidm71](https://github.com/davidm71):
 
 1.-Configure the internal USB ports as 255 in the USB port mapping kext if they are not already.
 
