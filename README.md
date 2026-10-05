@@ -8,6 +8,13 @@ macOS Sonoma removed drivers for Broadcom Wi-Fi cards found in Mac models prior 
 
 Here I propose a model of Intel Wi-Fi card that by default lacks support but can be used in macOS thanks to the work of the OpenIntelWireless site. This is the Intel AX210S PCIe WiFi 6E card. This card can work with regular macOS security conditions without needing to relax Apple Secure Boot or SIP. It may be interesting for those who have lost Broadcom Wi-Fi support in macOS Sonoma+ or for those who want to keep the security of their system without resorting to OCLP patches.
 
+### What's new in October 2026
+
+User [laobamac](https://github.com/laobamac/itlwm) is working on updating `itlwm.kext` and `AirportItlwm.kext`, which had not received improvements for quite some time:
+
+- `itlwm.kext`: This extension previously required the Heliport app to function, with the connection spoofing as Ethernet despite operating as Wi-Fi. Laobamac's version works without Heliport and operates much more like native macOS Wi-Fi—using the native Wi-Fi interface for functions such as scanning, connecting, network switching, and private Wi-Fi addresses. Internet connectivity is established very early during system startup; there is no longer a need to wait on the Desktop for Heliport to establish the connection. This version of `itlwm.kext` is intended solely for macOS Tahoe.
+- `AirportItlwm.kext`: Adds native support for macOS Sequoia 15.2+, a frequently requested feature on forums and GitHub.
+
 ### Hardware
 
 The card can be purchased in 2 different ways:
