@@ -131,6 +131,12 @@ Both kexts should not be used at the same time, only one of them. I have tried b
 
 All kexts are available in the [releases](https://github.com/OpenIntelWireless/itlwm/releases) page. You can get an updated version of Heliport [here](https://github.com/perez987/HeliPort).
 
+### Speed up the connection
+
+To connect before the login window, configure the network directly in `itlwm.kext`, without HeliPort. `itlwm.kext` joins the networks in the WiFiConfig dictionary of `itlwm.kext/Contents/Info.plist` when the kext loads during boot (IOKitPersonalities → itlwm → WiFiConfig → WiFi_1, WiFi_2, … with ssid and password strings). HeliPort detects the active connection and does not try to connect again. You can keep HeliPort for scanning and for switching networks.
+
+Note: the passwords are stored as plain text in the kext (in your EFI partition).
+
 ## Installing Bluetooth module
 
 On Monterey and newer you have to install 3 extensions:
