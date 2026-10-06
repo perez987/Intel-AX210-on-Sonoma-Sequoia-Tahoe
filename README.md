@@ -15,6 +15,29 @@ User [laobamac](https://github.com/laobamac/itlwm) is working on updating `itlwm
 - `itlwm.kext`: This extension previously required the Heliport app to function, with the connection spoofing as Ethernet despite operating as Wi-Fi. Laobamac's version works without Heliport and operates much more like native macOS Wi-Fi—using the native Wi-Fi interface for functions such as scanning, connecting, network switching, and private Wi-Fi addresses. Internet connectivity is established very early during system startup; there is no longer a need to wait on the Desktop for Heliport to establish the connection. This version of `itlwm.kext` is intended solely for macOS Tahoe.
 - `AirportItlwm.kext`: Adds native support for macOS Sequoia 15.2+, a frequently requested feature on forums and GitHub.
 
+#### Missing menu bar icon
+
+If you miss the connection menu in the menu bar—the one HeliPort used to provide—I found a workaround.
+
+The user felixblome has a project called "Easy Ethernet Icon" (no longer maintained); it is a simple, lightweight macOS menu bar app built with SwiftUI that displays the status of your Ethernet connection.
+
+I added several features so it could serve as a replacement for the HeliPort menu bar icon, providing an icon that indicates whether the connection is active or inactive.
+
+Designed to monitor only the system's Ethernet interface, the app now includes a setting that lets the user choose between two Ethernet interfaces:
+
+- Ethernet (the main built-in interface)
+- Ethernet 2 (the interface created by `itlwm.kext` to support Intel Wi-Fi cards that lack native macOS compatibility).
+
+The app works well and is very resource-efficient; the icon simply toggles between "on" and "off" states, and clicking it opens a simple menu for configuring parameters such as the monitored interface (Ethernet or Ethernet 2), whether to launch at startup, the icon style (macOS or Windows), and whether to display the connection speed.
+
+<table>
+<tr>
+<td>
+  <img src="img/EEI.png">
+ </td>
+</tr>
+</table>
+
 ### Hardware
 
 The card can be purchased in 2 different ways:
