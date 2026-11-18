@@ -8,12 +8,52 @@ macOS Sonoma removed drivers for Broadcom Wi-Fi cards found in Mac models prior 
 
 Here I propose a model of Intel Wi-Fi card that by default lacks support but can be used in macOS thanks to the work of the OpenIntelWireless site. This is the Intel AX210S PCIe WiFi 6E card. This card can work with regular macOS security conditions without needing to relax Apple Secure Boot or SIP. It may be interesting for those who have lost Broadcom Wi-Fi support in macOS Sonoma+ or for those who want to keep the security of their system without resorting to OCLP patches.
 
-## What's new in October 2026
+## 🆕 What's new in October 2026
 
 User [laobamac](https://github.com/laobamac/itlwm) is working on updating `itlwm.kext` and `AirportItlwm.kext`, which had not received improvements for quite some time:
-
-- `itlwm.kext`: This extension previously required the Heliport app to function, with the connection spoofing as Ethernet despite operating as Wi-Fi. Laobamac's version works without Heliport and operates much more like native macOS Wi-Fi—using the native Wi-Fi interface for functions such as scanning, connecting, network switching, and private Wi-Fi addresses. Internet connectivity is established very early during system startup; there is no longer a need to wait on the Desktop for Heliport to establish the connection. This version of `itlwm.kext` is intended solely for macOS Tahoe.
+ - `itlwm.kext`: This extension previously required the Heliport app to function, with the connection spoofing as Ethernet despite operating as Wi-Fi. Laobamac's version works without Heliport and operates much more like native macOS Wi-Fi—using the native Wi-Fi interface for functions such as scanning, connecting, network switching, and private Wi-Fi addresses. Internet connectivity is established very early during system startup; there is no longer a need to wait on the Desktop for Heliport to establish the connection. This version of `itlwm.kext` is intended solely for macOS Tahoe.
 - `AirportItlwm.kext`: Adds native support for macOS Sequoia 15.2+, a frequently requested feature on forums and GitHub.
+
+### Get the kexts
+
+Get the released version of `AirportItlwm.kext` at:
+https://github.com/laobamac/itlwm/releases
+
+For `itlwm.kext`, there is no released version available for download yet, so you must compile it yourself:
+
+1.- Install Xcode, git, gh and Python 3
+
+2.- Get the `itlwm` project code
+
+`gh repo clone laobamac/itlwm`
+
+3.- Get version (commit) 3f75008 of `MacKernelSDK` in the same `itlwm` project folder
+
+```
+git clone https://github.com/acidanthera/MacKernelSDK.git
+git -C MacKernelSDK checkout 3f750085caa17ec3a7880f11c11bf4f48cd6a164
+```
+
+4.- Compile `itlwm` · Tahoe
+
+```
+xcodebuild -project itlwm.xcodeproj -scheme itlwm \
+-configuration Release ARCHS=x86_64 CODE_SIGNING_ALLOWED=NO build
+```
+
+5.- The result is located at
+
+```
+~/Library/Developer/Xcode/DerivedData/itlwm-<long_string>/Build/Products/Release/itlwm.kext
+```
+
+### Accelerating the Wi-Fi connection
+
+You can make your network connection faster—establishing it even before reaching the desktop—by using the network configuration feature in `itlwm`.<br>
+`itlwm` allows you to enter the name (SSID) and password for one or more Wi-Fi networks; this speeds up the device's connection to the wireless network, as the connection is established almost instantly when `itlwm` loads during system startup.<br>
+`itlwm` connects to the networks specified in the `WiFiConfig` dictionary within `itlwm.kext/Contents/Info.plist` when the kext loads during boot (`IOKitPersonalities → itlwm → WiFiConfig → WiFi_1, WiFi_2`…). Enter your Wi-Fi network details (SSID and password strings) here.
+
+**Note**: Passwords are stored as plain text within the kext (on your EFI partition).
 
 ### Missing menu bar icon
 
@@ -38,50 +78,11 @@ The app works well and is very resource-efficient; the icon simply toggles betwe
 </tr>
 </table>
 
-### Get the kexts
 
-Get the released version of `AirportItlwm.kext` at:
-https://github.com/laobamac/itlwm/releases
-
-For `itlwm.kext`, there is no released version available for download yet, so you must compile it yourself:
-
-1.- Install Xcode and Python 3
-
-2.- Get the `itlwm` project code
-
-`gh repo clone laobamac/itlwm`
-
-3.- Get version (commit) 3f75008 of `MacKernelSDK` in the same `itlwm` project folder
-
-```
-git clone https://github.com/acidanthera/MacKernelSDK.git
-git -C MacKernelSDK checkout 3f750085caa17ec3a7880f11c11bf4f48cd6a164
-```
-
-4.- Compile `itlwm` · Tahoe
-
-```
-xcodebuild -project itlwm.xcodeproj -scheme itlwm \
--configuration Release ARCHS=x86_64 CODE_SIGNING_ALLOWED=NO build
-```
-
-5.- Compile `AirportItlwm` · Tahoe
-
-```
-xcodebuild -project itlwm.xcodeproj -scheme AirportItlwm-Tahoe \
--configuration Release ARCHS=x86_64 CODE_SIGNING_ALLOWED=NO build
-```
-
-6.- The results are located at
-
-```
-~/Library/Developer/Xcode/DerivedData/itlwm-<long_string>/Build/Products/Release/itlwm.kext
-~/Library/Developer/Xcode/DerivedData/itlwm-<long_string>/Build/Products/Release/Tahoe/AirportItlwm.kext
-```
 
 ---
 
-## Hardware
+## Hardware: Intel AX210
 
 The card can be purchased in 2 different ways:
 
